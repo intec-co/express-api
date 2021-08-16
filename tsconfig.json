@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "target": "ES2019",
+        "lib": [
+            "ES2019"
+        ],
+        "types": [
+            "reflect-metadata"
+        ],
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "outDir": "dist",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "noImplicitAny": true,
+        "baseUrl": ".",
+        "sourceMap": true
+    },
+    "include": [
+        "src/**/*"
+    ]
+}
