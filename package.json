@@ -2,6 +2,7 @@
   "name": "express-api",
   "version": "1.0.0",
   "description": "server api CoinGecko",
+  "main": "dist/server.js",
   "scripts": {
     "build-ts": "tsc",
     "build": "npm run build-ts && npm run lint",
@@ -30,8 +31,10 @@
   "homepage": "https://github.com/intec-co/express-api#readme",
   "devDependencies": {
     "@types/chai": "^4.2.21",
+    "@types/coingecko-api": "^1.0.2",
     "@types/eslint": "^7.28.0",
     "@types/express": "^4.17.13",
+    "@types/jsonwebtoken": "^8.5.4",
     "@types/node": "^16.6.0",
     "@types/shelljs": "^0.8.9",
     "@typescript-eslint/eslint-plugin": "^4.29.1",
@@ -56,6 +59,7 @@
     "express": "^4.17.1",
     "inversify": "^5.1.1",
     "inversify-express-utils": "^6.3.2",
+    "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.1.0",
     "mongodb-memory-server": "^7.3.6",
     "reflect-metadata": "^0.1.13",

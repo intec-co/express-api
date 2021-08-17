@@ -8,6 +8,6 @@ export class Person {
 	@IsString()
 	user: string;
 	@IsString()
-	@IsIn(['USD', 'EUR', 'ARS'])
-	coin: string;
+	@IsIn(['usd', 'eur', 'ars'])
+	currency: 'usd' | 'eur' | 'ars';
 }

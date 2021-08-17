@@ -16,23 +16,36 @@ To not install and configure a database server, the application is configured wi
 ## How to run the app
 The app use .env file for configure environment variables, the project have the sample file .env.sample.
 To copy the file to run locally you can use the next command:
-`npm run copy-dot-env`
+```
+npm run copy-dot-env
+```
 With the .env file configured you can use the next command:
 ### Install dependency:
-```npm i```
+```
+npm i
+```
 ### Build and run the project:
-```npm run build```
-```npm start```
+```bash
+npm run build; npm start
+```
 ### Other Command:
 - Run and auto compile for develop:
-```npm run watch```
+```
+npm run watch
+```
+- Or run, auto compile and debug:
+```
+npm run watch-debug
+```
 - Run unit test and coverage
-```npm run test```
+```
+npm run test
+```
 ## How to use
 All api body must have JSON notation, the payload request varies for each endpoint, but the response always has the same structure.
 - response structure:
 status: true if the operation was executed correctly
-error: is optional, if status is false the response has a error with message string error.
+error: is optional, if status is false the response has a error with message string error in spanish.
 data: is optional, return string, object or array according to each endpoint.
 ```json
 {
@@ -55,3 +68,9 @@ body format:
 }
 ```
 The password must have at least one number and one letter, the minimum size must be 8 characters.
+
+## Structure of documents
+For a develop easier the relationship into documents use the key "user", in the real application the best option in mongodb is to use the key "_id".
+
+## TODO
+- Create index in mongodb, as the database is in memory, no indices were created.
