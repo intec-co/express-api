@@ -57,7 +57,7 @@ data: is optional, return string, object or array according to each endpoint.
 ### Create account
 endpoint:
 `/create`
-body format:
+request:
 ```json
 {
 	"name": "string",
@@ -68,9 +68,39 @@ body format:
 }
 ```
 The password must have at least one number and one letter, the minimum size must be 8 characters.
+response:
+```json
+{
+	"status": "boolean"
+}
+```
+
+### Login
+endpoint:
+`/login`
+request:
+```json
+{
+	"user":"string",
+    "password": "string"
+}
+```
+response:
+```json
+{
+    "status": "boolean",
+    "data": "string"
+}
+```
+The value of data in response is a jwt to make the authentication request, the header "Authorization" must have the value whit the string "Bearer", ej: `Authorization: Bearer token`
+The token expires in the time in seconds specified in the file .env in the value of SESSION_TIMEOUT
 
 ## Structure of documents
 For a develop easier the relationship into documents use the key "user", in the real application the best option in mongodb is to use the key "_id".
 
 ## TODO
 - Create index in mongodb, as the database is in memory, no indices were created.
+- Implement strategy to create secret for authentication in auth.ts, currently uses value of SESSION_SECRET in .env.
+- Comment code and code documentation.
+- SwaggerUI.
+- Add time to log.
