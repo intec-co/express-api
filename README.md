@@ -1,3 +1,4 @@
+
 # Express Api CoinGecko
 
 This project is written in Typescript and use some library that work with decorators.
@@ -41,6 +42,7 @@ npm run watch-debug
 ```
 npm run test
 ```
+
 ## How to use
 All api body must have JSON notation, the payload request varies for each endpoint, but the response always has the same structure.
 - response structure:
@@ -54,7 +56,10 @@ data: is optional, return string, object or array according to each endpoint.
 	"data": "any"
 }
 ```
+
 ### Create account
+method:
+`POST`
 endpoint:
 `/create`
 request:
@@ -64,7 +69,7 @@ request:
 	"lastName": "string",
 	"user": "string",
 	"coin": "string",
-    "password": "string"
+	"password": "string"
 }
 ```
 The password must have at least one number and one letter, the minimum size must be 8 characters.
@@ -76,6 +81,8 @@ response:
 ```
 
 ### Login
+method:
+`POST`
 endpoint:
 `/login`
 request:
@@ -95,12 +102,60 @@ response:
 The value of data in response is a jwt to make the authentication request, the header "Authorization" must have the value whit the string "Bearer", ej: `Authorization: Bearer token`
 The token expires in the time in seconds specified in the file .env in the value of SESSION_TIMEOUT
 
+### Get all coins
+method:
+`GET`
+endpoint:
+`/operations/coins`
+
+response:
+```json
+{
+    "status": "boolean",
+    "data": "Array<{ symbol:string, price: number, name: string, image: string, lastUpdated: string}>"
+}
+```
+Requires Authorization header
+
+### Add coin to user
+endpoint:
+`/operations/add-coin`
+request:
+```json
+{
+	"coin": "string"
+}
+```
+response:
+```json
+{
+    "status": "boolean",
+    "data": "string"
+}
+```
+Requires Authorization header
+
+### Get top of coins
+method:
+`GET`
+endpoint:
+`/operations/top-coin/:numberOfCoin/:sort`
+:numberOfCoin is the symbol of coin to add
+:sort is optional, "asc" for sort coins in ascending and "des" descending
+ej: /operations/addCoin/eth/des
+response:
+```json
+{
+    "status": "boolean",
+    "data": "Array<{ symbol:string, priceArs: number, priceUsd: number, priceEur: number, name: string, image: string, lastUpdated: string}>"
+}
+```
+Requires Authorization header
+
 ## Structure of documents
 For a develop easier the relationship into documents use the key "user", in the real application the best option in mongodb is to use the key "_id".
 
 ## TODO
-- Create index in mongodb, as the database is in memory, no indices were created.
-- Implement strategy to create secret for authentication in auth.ts, currently uses value of SESSION_SECRET in .env.
+- Create index in mongodb: as the database is in memory, no indices were created, **The best way to control unique data is the index**.
 - Comment code and code documentation.
 - SwaggerUI.
-- Add time to log.

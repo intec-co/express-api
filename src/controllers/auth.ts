@@ -11,16 +11,18 @@ class Auth {
 	private timeout: number;
 	private secret: string;
 	constructor() {
-		this.timeout = +process.env.SESSION_TIMEOUT * 1000;
-		// TODO implement strategy
-		this.secret = process.env.SESSION_SECRET;
+		// setTimeout with 0 make that assignation have a delay while load env values.
+		setTimeout(() => {
+			this.timeout = +process.env.SESSION_TIMEOUT * 1000;
+			this.secret = process.env.SESSION_SECRET;
+		}, 0);
 	}
 
 	login = async (req: Request, res: Response): Promise<void> => {
 		let login: Login;
 		try {
 			login = await transformAndValidate(Login, req.body) as Login;
-			logger.info(`[Login]> ${JSON.stringify(login.user)} ${new Date().toISOString()}`);
+			logger.info(`[Login]> ${JSON.stringify(login.user)}`);
 		} catch (e) {
 			const error: IResponse = {
 				status: false,
@@ -37,7 +39,7 @@ class Auth {
 			};
 			const credential = await mongo.db.collection('credential').findOne(credentialQuery);
 			if (credential) {
-				const token = jwt.sign({ user: true }, this.secret);
+				const token = jwt.sign({ user: login.user }, this.secret);
 				const response: IResponse = {
 					status: true,
 					data: token
@@ -57,24 +59,25 @@ class Auth {
 				status: false,
 				error: 'Lo sentimos en este momento no podemos atender su solicitud, por favor intente más tarde'
 			};
-			logger.error(`[Login]> Auth >${JSON.stringify(JSON.stringify(e))}`);
+			logger.error(`[Login]> Auth >${JSON.stringify(e)}`);
 			res.json(error);
 		}
 	}
+
 	validated = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 		const authorization = req.headers.authorization.split(' ');
 		const token = authorization[1];
 		try {
 			const decoded: any = jwt.verify(token, this.secret);
 			const timeout = this.timeout + decoded.iat * 1000;
-			if (Date.now() > timeout) {
+			if (Date.now() < timeout) {
 				const reqAny: any = req;
 				reqAny.user = decoded.user;
 				next();
 			} else {
 				const error: IResponse = {
 					status: false,
-					error: 'Lo sentimos su sessión expiro.'
+					error: 'Lo sentimos su sessión expiró.'
 				};
 				res.status(401).json(error);
 			}

@@ -32,7 +32,7 @@ export const create = async (req: Request, res: Response): Promise<void> => {
 				status: false,
 				error: `El usuario ${accountData.user} ya existe`
 			};
-			logger.info(`[Create Account]> User already exists >${JSON.stringify(accountData.user)}`);
+			logger.info(`[Create Account]> User already exists > ${JSON.stringify(accountData.user)}`);
 			res.json(error);
 		} else {
 			const person: Person = {
@@ -58,7 +58,7 @@ export const create = async (req: Request, res: Response): Promise<void> => {
 			status: false,
 			error: 'Lo sentimos en este momento no se pudo crear su cuenta, por favor intente más tarde'
 		};
-		logger.error(`[Create Account]> Try Created >${JSON.stringify(JSON.stringify(e))}`);
+		logger.error(`[Create Account]> Try Created >${JSON.stringify(e)}`);
 		res.json(error);
 	}
 };
