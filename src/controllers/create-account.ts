@@ -13,14 +13,19 @@ export const create = async (req: Request, res: Response): Promise<void> => {
 	logger.info(`[Create Account]> Request >${JSON.stringify(req.body)}`);
 	let accountData: CreateAccount;
 	try {
+		logger.info(req.body);
 		accountData = await transformAndValidate(CreateAccount, req.body) as CreateAccount;
 	} catch (e) {
+		logger.error(`[Create Account]> Error en la estructura de los datos > ${JSON.stringify(e)}`);
+		let listErrors = '';
+		try {
+			listErrors = e[0].constraints;
+		} catch (e) { }
 		const error: IResponse = {
 			status: false,
-			error: e[0].constraints
+			error: listErrors
 		};
 		res.json(error);
-		logger.error(`[Create Account]> Error en la estructura de los datos > ${JSON.stringify(e)}`);
 		return;
 	}
 	try {

@@ -18,13 +18,6 @@ class MongoDbConnection {
 		this.db = this.connection.db('test');
 		logger.info('Connected to mongodb-memory-server');
 	};
-
-	async close() {
-		return Promise.all([
-			this.connection.close(),
-			this.mongoServer.stop()
-		]);
-	}
 }
 
 export const mongo = new MongoDbConnection();

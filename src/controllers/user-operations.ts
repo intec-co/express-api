@@ -77,7 +77,6 @@ export const topCoins = async (req: Request, res: Response): Promise<void> => {
 		const reqData: any = req;
 		const user = reqData.user;
 		const userCoins: UserCoin[] = (await mongo.db.collection('coins').find({ user }).toArray()) as UserCoin[];
-		logger.info(userCoins);
 		if (!userCoins || !userCoins.length) {
 			const response: IResponse = {
 				status: false,

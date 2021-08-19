@@ -4,9 +4,6 @@
         "lib": [
             "ES2019"
         ],
-        "types": [
-            "reflect-metadata"
-        ],
         "module": "commonjs",
         "moduleResolution": "node",
         "outDir": "dist",
