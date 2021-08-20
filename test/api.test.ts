@@ -18,7 +18,7 @@ beforeAll(async () => {
 
 describe('Test Api CoinGecko', () => {
     it('Flow Successful get all coins', async () => {
-        const result1 = await request(app).post('/create')
+        const result1 = await request(app).post('/create-account')
             .send({
                 name: 'Juan',
                 lastName: 'Juan',
@@ -41,7 +41,7 @@ describe('Test Api CoinGecko', () => {
     });
 
     it('Flow Successful add-coins top-coin', async () => {
-        const result1 = await request(app).post('/create')
+        const result1 = await request(app).post('/create-account')
             .send({
                 name: 'Juan',
                 lastName: 'Juan',
@@ -118,7 +118,7 @@ describe('Test Api CoinGecko', () => {
 
     // Test fail flow
     it('Fail create existing user', async () => {
-        const result1 = await request(app).post('/create')
+        const result1 = await request(app).post('/create-account')
             .send({
                 name: 'Juan',
                 lastName: 'Juan',
@@ -132,7 +132,7 @@ describe('Test Api CoinGecko', () => {
         expect(res1.status).toBeFalsy();
     });
     it('Fail create account with payload incomplete', async () => {
-        const result1 = await request(app).post('/create')
+        const result1 = await request(app).post('/create-account')
             .send({
                 lastName: 'Juan',
                 user: 'jj2',

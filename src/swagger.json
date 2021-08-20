@@ -1,0 +1,373 @@
+{
+	"definition": {
+		"openapi": "3.0.0",
+		"info": {
+			"title": "CoinGecko Express API with Swagger",
+			"version": "0.1.0",
+			"description": "This is a simple CRUD API application made with Express and documented with Swagger",
+			"license": {
+				"name": "MIT",
+				"url": "https: //spdx.org/licenses/MIT.html"
+			},
+			"contact": {
+				"name": "cavargasp",
+				"url": "https://github.com/intec-co/express-api"
+			}
+		},
+		"servers": [
+			{
+				"url": "http://localhost:3000/"
+			}
+		],
+		"paths": {
+			"/create-account": {
+				"post": {
+					"tags": [
+						"Create Account"
+					],
+					"summary": "Create User Account",
+					"requestBody": {
+						"description": "User data object that needs to be create",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/CreateAccount"
+								}
+							}
+						},
+						"required": true
+					},
+					"responses": {
+						"200": {
+							"description": "OK",
+							"content": {
+								"application/json": {
+									"schema": {
+										"$ref": "#/components/schemas/DefaultResponse"
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"/login": {
+				"post": {
+					"tags": [
+						"Login"
+					],
+					"summary": "Login user",
+					"requestBody": {
+						"description": "Login",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Login"
+								}
+							}
+						},
+						"required": true
+					},
+					"responses": {
+						"200": {
+							"description": "OK",
+							"content": {
+								"application/json": {
+									"schema": {
+										"$ref": "#/components/schemas/LoginResponse"
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"/operations/coins": {
+				"get": {
+					"tags": [
+						"Get all coins"
+					],
+					"parameters": [],
+					"summary": "Get all coins of CoinGecko",
+					"security": [
+						{
+							"bearerAuth": []
+						}
+					],
+					"responses": {
+						"200": {
+							"description": "OK",
+							"content": {
+								"application/json": {
+									"schema": {
+										"$ref": "#/components/schemas/CoinsResponse"
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"/operations/add-coin": {
+				"post": {
+					"tags": [
+						"Add coin to user account"
+					],
+					"parameters": [],
+					"summary": "Add coin to user account",
+					"security": [
+						{
+							"bearerAuth": []
+						}
+					],
+					"requestBody": {
+						"description": "Coin to add",
+						"content": {
+							"application/json": {
+								"schema": {
+									"required": [
+										"coin"
+									],
+									"properties": {
+										"coin": {
+											"type": "string",
+											"example": "btc"
+										}
+									}
+								}
+							}
+						},
+						"required": true
+					},
+					"responses": {
+						"200": {
+							"description": "OK",
+							"content": {
+								"application/json": {
+									"schema": {
+										"$ref": "#/components/schemas/DefaultResponse"
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"/operations/top-coins/{numberOfCoin}/{sort}": {
+				"get": {
+					"tags": [
+						"Get data of coins of user"
+					],
+					"summary": "Get data of coins of user",
+					"security": [
+						{
+							"bearerAuth": []
+						}
+					],
+					"parameters": [
+						{
+							"name": "numberOfCoin",
+							"in": "path",
+							"description": "Number of coins to get",
+							"required": true,
+							"schema": {
+								"type": "integer",
+								"format": "int64"
+							}
+						},
+						{
+							"name": "sort",
+							"in": "path",
+							"description": "Sort order",
+							"required": false,
+							"schema": {
+								"type": "string",
+								"enum": [
+									"asc",
+									"des"
+								]
+							}
+						}
+					],
+					"responses": {
+						"200": {
+							"description": "OK",
+							"content": {
+								"application/json": {
+									"schema": {
+										"$ref": "#/components/schemas/CoinsUserResponse"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"components": {
+			"schemas": {
+				"CreateAccount": {
+					"required": [
+						"name",
+						"lastName",
+						"user",
+						"currency",
+						"password"
+					],
+					"properties": {
+						"name": {
+							"type": "string",
+							"example": "Juan"
+						},
+						"lastName": {
+							"type": "string",
+							"example": "Perez"
+						},
+						"user": {
+							"type": "string",
+							"example": "jupe",
+							"uniqueItems": true
+						},
+						"currency": {
+							"type": "string",
+							"example": "usd"
+						},
+						"password": {
+							"type": "string",
+							"example": "123abc4d"
+						}
+					}
+				},
+				"Login": {
+					"required": [
+						"user",
+						"password"
+					],
+					"properties": {
+						"user": {
+							"type": "string",
+							"example": "jupe"
+						},
+						"password": {
+							"type": "string",
+							"example": "123abc4d"
+						}
+					}
+				},
+				"Coin": {
+					"properties": {
+						"symbol": {
+							"type": "string"
+						},
+						"price": {
+							"type": "number"
+						},
+						"name": {
+							"type": "string"
+						},
+						"image": {
+							"type": "string"
+						},
+						"lastUpdated": {
+							"type": "string"
+						}
+					}
+				},
+				"CoinUser": {
+					"properties": {
+						"symbol": {
+							"type": "string"
+						},
+						"priceArs": {
+							"type": "number"
+						},
+						"priceEur": {
+							"type": "number"
+						},
+						"priceUsd": {
+							"type": "number"
+						},
+						"name": {
+							"type": "string"
+						},
+						"image": {
+							"type": "string"
+						},
+						"lastUpdated": {
+							"type": "string"
+						}
+					}
+				},
+				"CoinsResponse": {
+					"properties": {
+						"status": {
+							"type": "boolean"
+						},
+						"data": {
+							"type": "array",
+							"items": {
+								"$ref": "#/components/schemas/Coin"
+							}
+						},
+						"error": {
+							"type": "any"
+						}
+					}
+				},
+				"CoinsUserResponse": {
+					"properties": {
+						"status": {
+							"type": "boolean"
+						},
+						"data": {
+							"type": "array",
+							"items": {
+								"$ref": "#/components/schemas/CoinUser"
+							}
+						},
+						"error": {
+							"type": "any"
+						}
+					}
+				},
+				"LoginResponse": {
+					"properties": {
+						"status": {
+							"type": "boolean"
+						},
+						"data": {
+							"type": "string",
+							"description": "Authorization Token"
+						},
+						"error": {
+							"type": "any"
+						}
+					}
+				},
+				"DefaultResponse": {
+					"properties": {
+						"status": {
+							"type": "boolean"
+						},
+						"data": {
+							"type": "any"
+						},
+						"error": {
+							"type": "any"
+						}
+					}
+				}
+			},
+			"securitySchemes": {
+				"bearerAuth": {
+					"type": "http",
+					"scheme": "bearer",
+					"bearerFormat": "JWT"
+				}
+			}
+		}
+	},
+	"apis": [
+		"./routes/index.js"
+	]
+}

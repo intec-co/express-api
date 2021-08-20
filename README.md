@@ -44,6 +44,10 @@ npm run test
 ```
 
 ## How to use
+
+### Swagger
+Swagger run in http://localhost:3000/api-docs
+
 All api body must have JSON notation, the payload request varies for each endpoint, but the response always has the same structure.
 - response structure:
 status: true if the operation was executed correctly
@@ -61,7 +65,7 @@ data: is optional, return string, object or array according to each endpoint.
 method:
 `POST`
 endpoint:
-`/create`
+`/create-account`
 request:
 ```json
 {
@@ -160,5 +164,3 @@ For a develop easier the relationship into documents use the key "user", in the 
 
 ## TODO
 - Create index in mongodb: as the database is in memory, no indices were created, **The best way to control unique data is the index**.
-- Comment code and code documentation.
-- SwaggerUI.

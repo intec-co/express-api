@@ -3,12 +3,14 @@ import { Request, Response } from 'express-serve-static-core';
 import { IResponse } from '../models/responses';
 import { mongo } from '../modules/mongodb';
 import { Person } from '../models/person';
-import { ICoinGecko } from 'src/models/coin';
+import { ICoinGecko } from '../models/coin';
+import { logger } from '../modules/logger';
 
 const coinGeckoClient = new CoinGecko();
 
 export const queryAll = async (req: Request, res: Response): Promise<void> => {
 	try {
+		logger.info('[COINS] > get all coins');
 		const reqData: any = req;
 		const userData: Person = (await mongo.db.collection('person').findOne({ user: reqData.user })) as Person;
 		const currency = userData.currency;
@@ -28,7 +30,7 @@ export const queryAll = async (req: Request, res: Response): Promise<void> => {
 	} catch (e) {
 		const response: IResponse = {
 			status: false,
-			error: 'No se pudo carga la información de monedas'
+			error: 'No se pudo cargar la información de monedas'
 		};
 		res.json(response);
 	}

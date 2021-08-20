@@ -5,7 +5,7 @@ import * as operations from '../routes/operations';
 
 const router = express.Router();
 
-router.post('/create', createAccount.create);
+router.post('/create-account', createAccount.create);
 router.post('/login', auth.login);
 router.use('/operations', operations);
 

@@ -20,13 +20,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:3000/create",
+					"raw": "localhost:3000/create-account",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"create"
+						"create-account"
 					]
 				}
 			},
@@ -180,7 +180,7 @@
 	"variable": [
 		{
 			"key": "authorization",
-			"value": "abc"
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoianVhbnAiLCJpYXQiOjE2MjkzOTczMzZ9.vZmBzqGsydafogAUEvFzMvYFk9VmlT0TyCiKVS7Kpw4"
 		}
 	]
 }

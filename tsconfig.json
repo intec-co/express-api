@@ -10,8 +10,9 @@
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "noImplicitAny": true,
-        "baseUrl": ".",
-        "sourceMap": true
+        "baseUrl": "./src/",
+        "sourceMap": true,
+        "resolveJsonModule": true
     },
     "include": [
         "src/**/*"

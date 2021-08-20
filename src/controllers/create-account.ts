@@ -1,9 +1,9 @@
 import { transformAndValidate } from 'class-transformer-validator';
 import { Request, Response } from 'express';
 import { Collection } from 'mongodb';
-import { Login } from 'src/models/login';
-import { Person } from 'src/models/person';
-import { IResponse } from 'src/models/responses';
+import { Login } from '../models/login';
+import { Person } from '../models/person';
+import { IResponse } from '../models/responses';
 import { CreateAccount } from '../models/create-account';
 import { logger } from '../modules/logger';
 import { mongo } from '../modules/mongodb';
