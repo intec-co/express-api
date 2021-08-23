@@ -1,22 +1,22 @@
 
 # Express Api CoinGecko
 
-This project is written in Typescript and use some library that work with decorators.
+This project was written with Typescript and using some libraries that work with decorators.
 
-The main libraries used are:
+The main libraries used were:
 - express.js to build endpoint api.
 - mongodb-memory-server as database.
-- class-validation for the request body validation, this is easier to read that joi.
-- winston is an tool for make log of app.
+- class-validation to the request body validation, this way is easier to read compared with joi.
+- winston is an tool to handle the log of the app.
 
-This project does not use inversify or inversify-express-utils for use common code of express in Typescript, for supply singleton object and dependency injection this project use export const in the modules.
+This project does not use inversify or inversify-express-utils becase it's not required, to supply singleton object and dependency injection this project use export const in the modules.
 
 ## Database
-To not install and configure a database server, the application is configured with mongodb-memory-server, this is a implementation of MongoDB in memory for testing.
+The application use mongodb-memory-server, this is a implementation of MongoDB in memory for testing.
 
 ## How to run the app
-The app use .env file for configure environment variables, the project have the sample file .env.sample.
-To copy the file to run locally you can use the next command:
+The app use .env file to configure environment variables, the project have the sample file .env.sample.
+To copy the file locally you can use the next command:
 ```
 npm run copy-dot-env
 ```
@@ -30,7 +30,7 @@ npm i
 npm run build; npm start
 ```
 ### Other Command:
-- Run and auto compile for develop:
+- Run and auto compile to develop:
 ```
 npm run watch
 ```
@@ -48,11 +48,11 @@ npm run test
 ### Swagger
 Swagger run in http://localhost:3000/api-docs
 
-All api body must have JSON notation, the payload request varies for each endpoint, but the response always has the same structure.
+All api body must have JSON notation, the payload request change to each endpoint, but the response always has the same structure.
 - response structure:
 status: true if the operation was executed correctly
-error: is optional, if status is false the response has a error with message string error in spanish.
-data: is optional, return string, object or array according to each endpoint.
+error: optional, if status is false the response has a error with message string error in spanish.
+data: optional, return string, object or array according to each endpoint.
 ```json
 {
 	"status": "boolean",
@@ -103,8 +103,8 @@ response:
     "data": "string"
 }
 ```
-The value of data in response is a jwt to make the authentication request, the header "Authorization" must have the value whit the string "Bearer", ej: `Authorization: Bearer token`
-The token expires in the time in seconds specified in the file .env in the value of SESSION_TIMEOUT
+The value of data in response is a jwt to authenticate the request, the header "Authorization" must have the value whit the string "Bearer", ej: `Authorization: Bearer token`
+The token expires in the time specified in the file .env in the value of SESSION_TIMEOUT, this value is expected in seconds
 
 ### Get all coins
 method:
@@ -139,12 +139,12 @@ response:
 ```
 Requires Authorization header
 
-### Get top of coins
+### Get list of the most valued coins
 method:
 `GET`
 endpoint:
 `/operations/top-coins/:numberOfCoin/:sort`
-:numberOfCoin is the symbol of coin to add
+:numberOfCoin is the number of coins to get
 :sort is optional, "asc" for sort coins in ascending and "des" descending
 ej: /operations/addCoin/eth/des
 response:
@@ -157,10 +157,10 @@ response:
 Requires Authorization header
 
 ### Postman examples
-The file apiCoinGecko.postman_collection.json contain a collection with examples of endpoint, it is necessary to set variable "authorization" with the token that return login, this value is send in Authorization header.
+The file apiCoinGecko.postman_collection.json contain a collection with examples of how to use endpoint, it is needed to set variable "authorization" with the token that return login, this value is sended in Authorization header.
 
 ## Structure of documents
-For a develop easier the relationship into documents use the key "user", in the real application the best option in mongodb is to use the key "_id".
+For an shorter code, the relationship between documents use the key "user", in the real application the best option in mongodb is to use the key "_id" or other field indexed.
 
 ## TODO
-- Create index in mongodb: as the database is in memory, no indices were created, **The best way to control unique data is the index**.
+- Create index in mongodb: as the database is in memory, no indexes were created, **The best way to control unique data is the index**.
